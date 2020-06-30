@@ -36,5 +36,7 @@ GLKit 是 iOS5 推出的一个框架，旨在简化 OpenGL（ES） 的使用，�
 
 ## Demos
 
-- Demo01-GLKitView：4 行代码实现使用 OpenGL 绘制红色屏幕
+- 0x01-GLKitView：红色呼吸灯；感受 5 行代码实现使用 OpenGL 绘制的便利！
+- 0x02-GLKitViewController：进一步简化了 0x01 的逻辑；感受 GLKitViewController 的便利！
+- 0x03-VBO-GLKBaseEffect：彩色三角形，感受无形 shader 的力量！
 
