@@ -1,0 +1,40 @@
+## GLKit Introduction
+
+GLKit 是 iOS5 推出的一个框架，旨在简化 OpenGL（ES） 的使用，从 iOS 12 开始废弃！
+
+从 GLKit 的头文件可以看出包含了以下几个部分：
+
+```objective-c
+#import <GLKit/GLKitBase.h>
+
+#if TARGET_OS_IPHONE
+
+#import <GLKit/GLKView.h>
+
+#import <GLKit/GLKViewController.h>
+#endif
+
+#import <GLKit/GLKModel.h>
+
+#import <GLKit/GLKEffects.h>
+
+#import <GLKit/GLKMath.h>
+
+#import <GLKit/GLKTextureLoader.h>
+```
+
+
+
+- GLKitBase：GLKit 是对 OpenGL（ES）的封装，因此需要对此依赖，Base 主要是引入相关的头文件。
+- GLKView/GLKViewController：**iOS 平台特有的**，抽取了大量的模板代码，完成了 OpenGL ES 项目的基本配置。
+- GLKModel：包含了几个 Model 类。
+- GLKEffects：简化了从 1.0 到 2.0 的转化，提供了让光照和纹理处理工作简单的方法。
+- GLKMath：在 iOS 5之前，每个游戏都需要有自己的数学库，用来处理向量矩阵，GLKMath 提供了这些方法。
+- GLKTextureLoader：用于加载图像作为 OpenGL 使用的纹理，不再需要自己写个方法去处理大量不同的图像格式了。
+
+
+
+## Demos
+
+- Demo01-GLKitView：4 行代码实现使用 OpenGL 绘制红色屏幕
+

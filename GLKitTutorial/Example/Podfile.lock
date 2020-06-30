@@ -1,0 +1,18 @@
+PODS:
+  - GLKitTutorial (0.1.0):
+    - GLKitTutorial/0x01 (= 0.1.0)
+  - GLKitTutorial/0x01 (0.1.0)
+
+DEPENDENCIES:
+  - GLKitTutorial (from `../`)
+
+EXTERNAL SOURCES:
+  GLKitTutorial:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  GLKitTutorial: f012056495e5c9208af48eb7bf05f9e3c64130e4
+
+PODFILE CHECKSUM: 76557803f225b0a5abfc0d74b6080282eb33e865
+
+COCOAPODS: 1.9.1
