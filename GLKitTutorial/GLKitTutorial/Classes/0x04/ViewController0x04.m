@@ -1,12 +1,12 @@
 //
-//  ViewController0x03.h
+//  ViewController0x04.h
 //  GLKTutorial
 //
 //  Created by Matt Reach on 2020/6/30.
 //  Copyright © 2020 GLKTutorial. All rights reserved.
 //
 
-#import "ViewController0x03.h"
+#import "ViewController0x04.h"
 
 /*
 OpenGL 坐标系(忽略 Z 轴)
@@ -23,14 +23,17 @@ typedef struct {
 static const Vertex Vertices[] = {
     {{1, -1, 0},{1, 0, 0, 1}},
     {{1, 1, 0},{0, 1, 0, 1}},
-    {{-1, 1, 0},{0, 0, 1, 1}}
+    {{-1, 1, 0},{0, 0, 1, 1}},
+    {{-1, -1, 0},{0, 0, 0, 1}} //矩形需要4个顶点
 };
 
+//绘制矩形，这里很关键！
 static const GLubyte Indices[] = {
-    0,1,2
+    0,1,2,
+    2,3,0
 };
 
-@interface ViewController0x03 ()
+@interface ViewController0x04 ()
 {
     GLuint _vertexBuffer;
     GLuint _indexBuffer;
@@ -42,7 +45,7 @@ static const GLubyte Indices[] = {
 
 @end
 
-@implementation ViewController0x03
+@implementation ViewController0x04
 
 - (void)dealloc
 {
