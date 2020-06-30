@@ -28,8 +28,9 @@
     if (!context) {
         context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
     }
-    //在 storyboard 里设置 view 的类型为 GLKView，并设置代理为当前 Controller。
+    //在 xib 里设置 view 的类型为 GLKView
     GLKView *glkView = (GLKView *)self.view;
+    //设置代理为当前 Controller。
     glkView.delegate = self;
     //设置 glkView 的上下文
     [glkView setContext:context];

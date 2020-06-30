@@ -8,6 +8,7 @@
 
 #import "MRTableViewController.h"
 #import <GLKitTutorial/ViewController0x01.h>
+#import <GLKitTutorial/ViewController0x02.h>
 
 @interface MRTableViewController ()
 
@@ -30,6 +31,9 @@
     if (row == 0) {
         ViewController0x01 *vc0x01 = [[ViewController0x01 alloc] initWithNibName:@"ViewController0x01" bundle:xibBundle];
         [self.navigationController pushViewController:vc0x01 animated:YES];
+    } else if (row == 1) {
+       ViewController0x02 *vc0x02 = [[ViewController0x02 alloc] init];
+       [self.navigationController pushViewController:vc0x02 animated:YES];
     }
 }
 
