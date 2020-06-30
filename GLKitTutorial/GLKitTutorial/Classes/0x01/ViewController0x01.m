@@ -14,6 +14,7 @@
 {
     float _curRed;
     BOOL _increasing;
+    BOOL _paused;
 }
 
 @end
@@ -42,10 +43,17 @@
     [displayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
 }
 
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+    _paused = !_paused;
+}
+
 - (void)render:(CADisplayLink *)sender
 {
-    GLKView *glkView = (GLKView *)self.view;
-    [glkView display];
+    if (!_paused) {
+        GLKView *glkView = (GLKView *)self.view;
+        [glkView display];
+    }
 }
 
 //实现代理方法！视图需要重绘时就会调用这个方法了；

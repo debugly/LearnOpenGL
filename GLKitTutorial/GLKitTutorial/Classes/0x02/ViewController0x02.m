@@ -35,6 +35,11 @@
     self.delegate = self;
 }
 
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+    self.paused = !self.paused;
+}
+
 //实现代理方法！视图需要重绘时就会调用这个方法了；
 - (void)glkView:(GLKView *)view drawInRect:(CGRect)rect
 {
