@@ -29,6 +29,8 @@
     GLKView *glkView = (GLKView *)self.view;
     //设置 glkView 的上下文
     [glkView setContext:context];
+    //默认是 30
+    self.preferredFramesPerSecond = 60;
     //设置 glkViewController 的代理
     self.delegate = self;
 }
@@ -44,10 +46,13 @@
 
 - (void)glkViewControllerUpdate:(GLKViewController *)controller
 {
+    //上次调用这个方法的时间间隔;默认情况下0.032s左右，因为缺省值是30FPS
+    float delta = controller.timeSinceLastUpdate;
+    
     if (_increasing) {
-        _curRed += 0.01;
+        _curRed += delta;
     } else {
-        _curRed -= 0.01;
+        _curRed -= delta;
     }
     
     if (_curRed > 1.0) {

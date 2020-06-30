@@ -51,10 +51,12 @@
 //实现代理方法！视图需要重绘时就会调用这个方法了；
 - (void)glkView:(GLKView *)view drawInRect:(CGRect)rect
 {
+    //假设屏幕刷新率是 60 HZ，则间隔为 16ms.
+    float delta = 0.016;
     if (_increasing) {
-        _curRed += 0.01;
+        _curRed += delta;
     } else {
-        _curRed -= 0.01;
+        _curRed -= delta;
     }
     
     if (_curRed > 1.0) {
