@@ -5,11 +5,13 @@ PODS:
     - GLKitTutorial/0x03 (= 0.0.5)
     - GLKitTutorial/0x04 (= 0.0.5)
     - GLKitTutorial/0x05 (= 0.0.5)
+    - GLKitTutorial/0x06 (= 0.0.5)
   - GLKitTutorial/0x01 (0.0.5)
   - GLKitTutorial/0x02 (0.0.5)
   - GLKitTutorial/0x03 (0.0.5)
   - GLKitTutorial/0x04 (0.0.5)
   - GLKitTutorial/0x05 (0.0.5)
+  - GLKitTutorial/0x06 (0.0.5)
 
 DEPENDENCIES:
   - GLKitTutorial (from `../`)
@@ -19,7 +21,7 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  GLKitTutorial: 04bf8e1a8905ecce998cdedc55062a71e371778a
+  GLKitTutorial: d9871995e1d2e15bee115cc8a4d7d3cc24578bd1
 
 PODFILE CHECKSUM: 76557803f225b0a5abfc0d74b6080282eb33e865
 

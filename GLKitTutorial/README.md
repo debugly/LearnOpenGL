@@ -41,6 +41,7 @@ GLKit 是 iOS5 推出的一个框架，旨在简化 OpenGL（ES） 的使用，�
 - 0x03-VBO-GLKBaseEffect：彩色三角形，感受无形 shader 的力量！
 - 0x04-VBO-GLKBaseEffect：彩色矩形=两个三角形拼接
 - 0x05-VBO-GLKBaseEffect：使用 8 个顶点绘制 12 个三角形拼成立方体
+- 0x06-VBO-GLKBaseEffect：使用 8 个顶点绘制 12 条线段组成立方体
 
 
 

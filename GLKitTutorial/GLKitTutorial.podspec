@@ -59,6 +59,11 @@ TODO: Add long description of the pod here.
     sub.source_files = 'GLKitTutorial/Classes/0x05/*'
   end
 
+  s.subspec '0x06' do |sub|
+    sub.public_header_files = 'Pod/Classes/0x06/*.h'  
+    sub.source_files = 'GLKitTutorial/Classes/0x06/*'
+  end
+
   s.frameworks = 'UIKit', 'GLKit'
 
 end
