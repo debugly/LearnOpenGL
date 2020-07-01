@@ -179,6 +179,8 @@ static const GLubyte Indices[] = {
     glEnableVertexAttribArray(GLKVertexAttribColor);
     //设置具体颜色值
     glVertexAttribPointer(GLKVertexAttribColor, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (const GLvoid *) offsetof(Vertex, color));
+    //线条宽度
+    glLineWidth(3);
     //绘制元素（线段类型，顶点数量，数据类型，使用VBO时表示偏移量）
     glDrawElements(GL_LINES, sizeof(Indices)/sizeof(Indices[0]), GL_UNSIGNED_BYTE, 0);
 }

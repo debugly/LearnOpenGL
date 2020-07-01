@@ -13,6 +13,7 @@
 #import <GLKitTutorial/ViewController0x04.h>
 #import <GLKitTutorial/ViewController0x05.h>
 #import <GLKitTutorial/ViewController0x06.h>
+#import <GLKitTutorial/ViewController0x07.h>
 
 @interface MRTableViewController ()
 
@@ -50,7 +51,10 @@
     } else if (row == 5) {
         ViewController0x06 *vc0x06 = [[ViewController0x06 alloc] init];
         [self.navigationController pushViewController:vc0x06 animated:YES];
-   }
+    } else if (row == 6) {
+       ViewController0x07 *vc0x07 = [[ViewController0x07 alloc] init];
+       [self.navigationController pushViewController:vc0x07 animated:YES];
+    }
 }
 
 @end
