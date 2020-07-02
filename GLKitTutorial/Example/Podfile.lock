@@ -1,23 +1,25 @@
 PODS:
-  - GLKitTutorial (0.0.9):
-    - GLKitTutorial/0x01 (= 0.0.9)
-    - GLKitTutorial/0x02 (= 0.0.9)
-    - GLKitTutorial/0x03 (= 0.0.9)
-    - GLKitTutorial/0x04 (= 0.0.9)
-    - GLKitTutorial/0x05 (= 0.0.9)
-    - GLKitTutorial/0x06 (= 0.0.9)
-    - GLKitTutorial/0x07 (= 0.0.9)
-    - GLKitTutorial/0x08 (= 0.0.9)
-    - GLKitTutorial/0x09 (= 0.0.9)
-  - GLKitTutorial/0x01 (0.0.9)
-  - GLKitTutorial/0x02 (0.0.9)
-  - GLKitTutorial/0x03 (0.0.9)
-  - GLKitTutorial/0x04 (0.0.9)
-  - GLKitTutorial/0x05 (0.0.9)
-  - GLKitTutorial/0x06 (0.0.9)
-  - GLKitTutorial/0x07 (0.0.9)
-  - GLKitTutorial/0x08 (0.0.9)
-  - GLKitTutorial/0x09 (0.0.9)
+  - GLKitTutorial (0.0.10):
+    - GLKitTutorial/0x01 (= 0.0.10)
+    - GLKitTutorial/0x02 (= 0.0.10)
+    - GLKitTutorial/0x03 (= 0.0.10)
+    - GLKitTutorial/0x04 (= 0.0.10)
+    - GLKitTutorial/0x05 (= 0.0.10)
+    - GLKitTutorial/0x06 (= 0.0.10)
+    - GLKitTutorial/0x07 (= 0.0.10)
+    - GLKitTutorial/0x08 (= 0.0.10)
+    - GLKitTutorial/0x09 (= 0.0.10)
+    - GLKitTutorial/0x0a (= 0.0.10)
+  - GLKitTutorial/0x01 (0.0.10)
+  - GLKitTutorial/0x02 (0.0.10)
+  - GLKitTutorial/0x03 (0.0.10)
+  - GLKitTutorial/0x04 (0.0.10)
+  - GLKitTutorial/0x05 (0.0.10)
+  - GLKitTutorial/0x06 (0.0.10)
+  - GLKitTutorial/0x07 (0.0.10)
+  - GLKitTutorial/0x08 (0.0.10)
+  - GLKitTutorial/0x09 (0.0.10)
+  - GLKitTutorial/0x0a (0.0.10)
 
 DEPENDENCIES:
   - GLKitTutorial (from `../`)
@@ -27,7 +29,7 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  GLKitTutorial: 253dd76b88f3a40711dac9b88e9d9e67ee81af4a
+  GLKitTutorial: b7f0c7e98fe5fcea2938194771ca18d5704b8937
 
 PODFILE CHECKSUM: 76557803f225b0a5abfc0d74b6080282eb33e865
 
