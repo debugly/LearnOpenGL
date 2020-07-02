@@ -1,12 +1,12 @@
 //
-//  ViewController0x08.h
+//  ViewController0x09.h
 //  GLKTutorial
 //
 //  Created by Matt Reach on 2020/7/2.
 //  Copyright © 2020 GLKTutorial. All rights reserved.
 //
 
-#import "ViewController0x08.h"
+#import "ViewController0x09.h"
 
 /*
 OpenGL 坐标系(忽略 Z 轴)
@@ -42,11 +42,14 @@ typedef struct {
 #define v3 {-1, -1, 1}
 
 typedef struct VertexData {
+    GLuint indexBuffer;
     GLuint vertexBuffer;
-    Vertex Vertices[6];
+    
+    GLubyte indices[6];
+    Vertex Vertices[4];
 } VertexData;
 
-@interface ViewController0x08 ()
+@interface ViewController0x09 ()
 {
     VertexData vertexData;
 }
@@ -56,7 +59,7 @@ typedef struct VertexData {
 
 @end
 
-@implementation ViewController0x08
+@implementation ViewController0x09
 
 - (void)dealloc
 {
@@ -115,23 +118,26 @@ typedef struct VertexData {
     
     Vertex vd [] =
     {
-        // 使用六个顶点渲染出完整的画面
-        {v0,    1.0f, 0.0f}, //右下
-        {v1,    1.0f, 1.0f}, //右上
-        {v2,    0.0f, 1.0f}, //左上
-        
-        {v0,    1.0f, 0.0f}, //右下
-        {v2,    0.0f, 1.0f}, //左上
-        {v3,    0.0f, 0.0f}   //左下
+        {v0,{1.0,0.0}},
+        {v1,{1.0,1.0}},
+        {v2,{0,1.0}},
+        {v3,{0.0,0.0}}
     };
+    GLubyte indices [] = {0,1,2,0,3,2};
     
+    memcpy(vertexData.indices, indices, sizeof(indices));
     memcpy(vertexData.Vertices, vd, sizeof(vd));
-    
     //创建顶点缓存对象（VBO）
     glGenBuffers(1, &vertexData.vertexBuffer);
     //将顶点数据发送数据到 OpenGL
     glBindBuffer(GL_ARRAY_BUFFER, vertexData.vertexBuffer);
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertexData.Vertices), vertexData.Vertices, GL_STATIC_DRAW);
+    
+    //创建索引缓冲对象（EBO）
+    glGenBuffers(1, &vertexData.indexBuffer);
+    //将顶点数据发送数据到 OpenGL
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vertexData.indexBuffer);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(vertexData.indices), vertexData.indices, GL_STATIC_DRAW);
     
     //开始使用顶点着色器的位置
     glEnableVertexAttribArray(GLKVertexAttribPosition);
@@ -162,7 +168,8 @@ typedef struct VertexData {
     glClear(GL_COLOR_BUFFER_BIT);
     //让着色器准备好
     [self.effect prepareToDraw];
-    glDrawArrays(GL_TRIANGLES, 0, sizeof(vertexData.Vertices));//
+//    glDrawArrays(GL_TRIANGLES, 0, sizeof(vertexData.Vertices));
+    glDrawElements(GL_TRIANGLES, sizeof(vertexData.indices), GL_UNSIGNED_BYTE, 0);
 }
 
 @end

@@ -15,6 +15,7 @@
 #import <GLKitTutorial/ViewController0x06.h>
 #import <GLKitTutorial/ViewController0x07.h>
 #import <GLKitTutorial/ViewController0x08.h>
+#import <GLKitTutorial/ViewController0x09.h>
 
 @interface MRTableViewController ()
 
@@ -51,6 +52,8 @@
        [self.navigationController pushViewController:[[ViewController0x07 alloc] init] animated:YES];
     } else if (row == 7) {
        [self.navigationController pushViewController:[[ViewController0x08 alloc] init] animated:YES];
+    } else if (row == 8) {
+       [self.navigationController pushViewController:[[ViewController0x09 alloc] init] animated:YES];
     }
 }
 
