@@ -43,8 +43,15 @@ GLKit 是 iOS5 推出的一个框架，旨在简化 OpenGL（ES） 的使用，�
 - 0x05-VBO-GLKBaseEffect：使用 8 个顶点绘制 12 个三角形拼成立方体
 - 0x06-VBO-GLKBaseEffect：使用 8 个顶点绘制 12 条线段组成立方体
 - 0x07-VBO-GLKBaseEffect：正多边形的极限是圆吗？
+- 0x08-GLKTextureLoader：纹理贴图之 Hello Cat
 
 
+
+以上 Demo 里没有一个是画点的，这是为什么？
+
+因为上面的 Demo 都没有手动编写 shader，而是使用 GLKBaseEffect ，这是很便利的！由于 OpengGL ES2/ES3 绘制点时需要在顶点着色器里设置 gl_PointSize，但是 GLKBaseEffect 没有提供设置点大小的属性或方法，所以想要使用 GLKit 绘制点的话需要自己写 shader 了！ 
+
+https://stackoverflow.com/questions/19614939/glkit-doesnt-draw-gl-points-or-gl-lines
 
 ## Reference
 

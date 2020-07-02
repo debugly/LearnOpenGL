@@ -143,8 +143,8 @@ typedef struct VertexData {
 - (void)glkView:(GLKView *)view drawInRect:(CGRect)rect
 {
     //设置可视区域为正方形，这样会出来的才是个圆形，否则你会看到一个椭圆！！
-    int width  = CGRectGetWidth(self.view.bounds)  * [[UIScreen mainScreen] scale];
-    int height = CGRectGetHeight(self.view.bounds) * [[UIScreen mainScreen] scale];
+    int width  = CGRectGetWidth(rect)  * [[UIScreen mainScreen] scale];
+    int height = CGRectGetHeight(rect) * [[UIScreen mainScreen] scale];
     GLsizei sizei = MIN(width, height);
     glViewport((width - sizei)/2.0, (height - sizei)/2.0, sizei, sizei);
     

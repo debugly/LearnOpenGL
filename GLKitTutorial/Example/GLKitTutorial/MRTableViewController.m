@@ -14,6 +14,7 @@
 #import <GLKitTutorial/ViewController0x05.h>
 #import <GLKitTutorial/ViewController0x06.h>
 #import <GLKitTutorial/ViewController0x07.h>
+#import <GLKitTutorial/ViewController0x08.h>
 
 @interface MRTableViewController ()
 
@@ -37,23 +38,19 @@
         ViewController0x01 *vc0x01 = [[ViewController0x01 alloc] initWithNibName:@"ViewController0x01" bundle:xibBundle];
         [self.navigationController pushViewController:vc0x01 animated:YES];
     } else if (row == 1) {
-        ViewController0x02 *vc0x02 = [[ViewController0x02 alloc] init];
-        [self.navigationController pushViewController:vc0x02 animated:YES];
+        [self.navigationController pushViewController:[[ViewController0x02 alloc] init] animated:YES];
     } else if (row == 2) {
-        ViewController0x03 *vc0x03 = [[ViewController0x03 alloc] init];
-        [self.navigationController pushViewController:vc0x03 animated:YES];
+        [self.navigationController pushViewController:[[ViewController0x03 alloc] init] animated:YES];
     } else if (row == 3) {
-        ViewController0x04 *vc0x04 = [[ViewController0x04 alloc] init];
-        [self.navigationController pushViewController:vc0x04 animated:YES];
+        [self.navigationController pushViewController:[[ViewController0x04 alloc] init] animated:YES];
     } else if (row == 4) {
-        ViewController0x05 *vc0x05 = [[ViewController0x05 alloc] init];
-        [self.navigationController pushViewController:vc0x05 animated:YES];
+        [self.navigationController pushViewController:[[ViewController0x05 alloc] init] animated:YES];
     } else if (row == 5) {
-        ViewController0x06 *vc0x06 = [[ViewController0x06 alloc] init];
-        [self.navigationController pushViewController:vc0x06 animated:YES];
+        [self.navigationController pushViewController:[[ViewController0x06 alloc] init] animated:YES];
     } else if (row == 6) {
-       ViewController0x07 *vc0x07 = [[ViewController0x07 alloc] init];
-       [self.navigationController pushViewController:vc0x07 animated:YES];
+       [self.navigationController pushViewController:[[ViewController0x07 alloc] init] animated:YES];
+    } else if (row == 7) {
+       [self.navigationController pushViewController:[[ViewController0x08 alloc] init] animated:YES];
     }
 }
 
