@@ -37,7 +37,7 @@ typedef struct {
     TexCoord0 coord0; //纹理0坐标
 } Vertex;
 
-// 4个顶点
+// 8个顶点
 #define v0 {1, -1, 1}
 #define v1 {1, 1, 1}
 #define v2 {-1, 1, 1}

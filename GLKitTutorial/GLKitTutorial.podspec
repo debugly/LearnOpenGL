@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'GLKitTutorial'
-  s.version          = '0.0.11'
+  s.version          = '0.0.12'
   s.summary          = 'A short description of GLKitTutorial.'
 
 # This description is used to generate tags and improve search results.
@@ -87,6 +87,11 @@ TODO: Add long description of the pod here.
   s.subspec '0x0b' do |sub|
     sub.public_header_files = 'Pod/Classes/0x0b/*.h'  
     sub.source_files = 'GLKitTutorial/Classes/0x0b/*'
+  end
+
+  s.subspec '0x0c' do |sub|
+    sub.public_header_files = 'Pod/Classes/0x0c/*.h'  
+    sub.source_files = 'GLKitTutorial/Classes/0x0c/*'
   end
 
   s.frameworks = 'UIKit', 'GLKit'

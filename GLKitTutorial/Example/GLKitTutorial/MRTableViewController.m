@@ -18,6 +18,7 @@
 #import <GLKitTutorial/ViewController0x09.h>
 #import <GLKitTutorial/ViewController0x0a.h>
 #import <GLKitTutorial/ViewController0x0b.h>
+#import <GLKitTutorial/ViewController0x0c.h>
 
 @interface MRTableViewController ()
 
@@ -38,8 +39,7 @@
     
     NSInteger row = indexPath.row;
     if (row == 0) {
-        ViewController0x01 *vc0x01 = [[ViewController0x01 alloc] initWithNibName:@"ViewController0x01" bundle:xibBundle];
-        [self.navigationController pushViewController:vc0x01 animated:YES];
+        [self.navigationController pushViewController:[[ViewController0x01 alloc] initWithNibName:@"ViewController0x01" bundle:xibBundle] animated:YES];
     } else if (row == 1) {
         [self.navigationController pushViewController:[[ViewController0x02 alloc] init] animated:YES];
     } else if (row == 2) {
@@ -60,6 +60,8 @@
         [self.navigationController pushViewController:[[ViewController0x0a alloc] init] animated:YES];
     } else if (row == 10) {
         [self.navigationController pushViewController:[[ViewController0x0b alloc] init] animated:YES];
+    } else if (row == 11) {
+        [self.navigationController pushViewController:[[ViewController0x0c alloc] initWithNibName:@"ViewController0x0c" bundle:xibBundle] animated:YES];
     }
 }
 
