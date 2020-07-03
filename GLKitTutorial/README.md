@@ -44,8 +44,9 @@ GLKit 是 iOS5 推出的一个框架，旨在简化 OpenGL（ES） 的使用，�
 - 0x06-VBO-GLKBaseEffect：使用 8 个顶点绘制 12 条线段组成立方体
 - 0x07-VBO-GLKBaseEffect：正多边形的极限是圆吗？
 - 0x08-GLKTextureLoader：纹理贴图之 Hello Cat
-- 0x09-EBO-GLKTextureLoader：使用 4 个顶点+EBO绘制纹理贴图
-- 0x0a-EBO-GLKTextureLoader：猫女郎之纹理混合
+- 0x09-EBO-GLKTextureLoader：使用 4 个顶点+EBO绘制猫女郎
+- 0x0a-EBO-GLKTextureLoader：多重纹理之猫女郎合体
+- 0x0b-EBO-GLKTextureLoader：多平面纹理之猫女郎分离（使用了两个shader）
 
 
 

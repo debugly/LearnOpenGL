@@ -71,7 +71,7 @@ typedef struct VertexData {
     Vertex  vertices[4];
 } VertexData;
 
-@interface ViewController0x0a ()<GLKViewControllerDelegate>
+@interface ViewController0x0a ()
 {
     VertexData vertexData;
     float _rotation;
@@ -119,8 +119,13 @@ typedef struct VertexData {
     self.effect = [[GLKBaseEffect alloc] init];
     self.effect.texture2d0.enabled = GL_TRUE;
     self.effect.texture2d0.name = textureInfo.name;
+    self.effect.texture2d0.target = textureInfo.target;
+    
     self.effect.texture2d1.enabled = GL_TRUE;
     self.effect.texture2d1.name = textureInfo2.name;
+    self.effect.texture2d1.target = textureInfo2.target;
+    //默认如此
+    self.effect.texture2d1.envMode = GLKTextureEnvModeModulate;
 }
 
 - (void)viewDidLoad {
