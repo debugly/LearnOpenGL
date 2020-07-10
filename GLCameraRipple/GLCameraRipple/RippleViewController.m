@@ -53,12 +53,7 @@
 @interface RippleViewController () {
     
     RippleModel *_ripple;
-    CGFloat _screenWidth;
-    CGFloat _screenHeight;
-    GLsizei _textureWidth;
-    GLsizei _textureHeight;
     unsigned int _meshFactor;
-    NSString *_sessionPreset;
     AVCaptureSession *_session;
 }
 
@@ -70,31 +65,12 @@
 {
     [super viewDidLoad];
     
-    _screenWidth = [UIScreen mainScreen].bounds.size.width;
-    _screenHeight = [UIScreen mainScreen].bounds.size.height;
-    
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-    {
-        // meshFactor controls the ending ripple mesh size.
-        // For example mesh width = screenWidth / meshFactor.
-        // It's chosen based on both screen resolution and device size.
-        _meshFactor = 8;
-        
-        // Choosing bigger preset for bigger screen.
-        _sessionPreset = AVCaptureSessionPreset1280x720;
-    }
-    else
-    {
-        _meshFactor = 4;
-        _sessionPreset = AVCaptureSessionPreset640x480;        
-    }
+    self.preferredFramesPerSecond = 60;
     
     [self setupAVCapture];
     
     MRVideoRenderer *view = (MRVideoRenderer *)self.view;
     [view setupGL];
-    view.delegate = self;
-    self.preferredFramesPerSecond = 60;
     [_session startRunning];
 }
 
@@ -103,44 +79,35 @@
     [_session stopRunning];
 }
 
-- (void)glkView:(GLKView *)view drawInRect:(CGRect)rect
-{
-    glClear(GL_COLOR_BUFFER_BIT);
-    
-    if (_ripple)
-    {
-        glDrawElements(GL_TRIANGLE_STRIP, [_ripple getIndexCount], GL_UNSIGNED_SHORT, 0);
-    }
-}
-
 - (void)captureOutput:(AVCaptureOutput *)captureOutput 
 didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer 
        fromConnection:(AVCaptureConnection *)connection
 {
     CVImageBufferRef pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer);
-    GLsizei width = (GLsizei)CVPixelBufferGetWidth(pixelBuffer);
+    GLsizei width  = (GLsizei)CVPixelBufferGetWidth(pixelBuffer);
     GLsizei height = (GLsizei)CVPixelBufferGetHeight(pixelBuffer);
     
     MRVideoRenderer *view = (MRVideoRenderer *)self.view;
     
     if (_ripple == nil ||
-        width != _textureWidth ||
-        height != _textureHeight)
+        width != [_ripple textureWidth] ||
+        height != [_ripple textureHeight])
     {
-        _textureWidth = width;
-        _textureHeight = height;
+        CGFloat screenWidth  = [UIScreen mainScreen].bounds.size.width;
+        CGFloat screenHeight = [UIScreen mainScreen].bounds.size.height;
         
-        _ripple = [[RippleModel alloc] initWithScreenWidth:_screenWidth 
-                                              screenHeight:_screenHeight
+        _ripple = [[RippleModel alloc] initWithScreenWidth:screenWidth
+                                              screenHeight:screenHeight
                                                 meshFactor:_meshFactor
                                                touchRadius:5
-                                              textureWidth:_textureWidth
-                                             textureHeight:_textureHeight];
+                                              textureWidth:width
+                                             textureHeight:height];
         
         [view setRipple:_ripple];
     }
     
     [view displayPixelBuffer:pixelBuffer];
+    view.isFullYUVRange = YES;
     [view setNeedsDisplay];
 }
 
@@ -150,19 +117,36 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     _session = [[AVCaptureSession alloc] init];
     [_session beginConfiguration];
     
+    NSString *sessionPreset = nil;
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+    {
+        // meshFactor controls the ending ripple mesh size.
+        // For example mesh width = screenWidth / meshFactor.
+        // It's chosen based on both screen resolution and device size.
+        _meshFactor = 8;
+        
+        // Choosing bigger preset for bigger screen.
+        sessionPreset = AVCaptureSessionPreset1280x720;
+    }
+    else
+    {
+        _meshFactor = 4;
+        sessionPreset = AVCaptureSessionPreset640x480;
+    }
+    
     //-- Set preset session size.
-    [_session setSessionPreset:_sessionPreset];
+    [_session setSessionPreset:sessionPreset];
     
     //-- Creata a video device and input from that Device.  Add the input to the capture session.
     AVCaptureDevice * videoDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
-    if(videoDevice == nil)
-        assert(0);
+    
+    NSAssert(videoDevice, @"Have none device.");
     
     //-- Add the device to the session.
     NSError *error;        
     AVCaptureDeviceInput *input = [AVCaptureDeviceInput deviceInputWithDevice:videoDevice error:&error];
-    if(error)
-        assert(0);
+    
+    NSAssert(!error, @"Device can't as input.");
     
     [_session addInput:input];
     
@@ -171,6 +155,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     [dataOutput setAlwaysDiscardsLateVideoFrames:YES]; // Probably want to set this to NO when recording
     
     //-- Set to YUV420.
+    
     [dataOutput setVideoSettings:[NSDictionary dictionaryWithObject:[NSNumber numberWithInt:kCVPixelFormatType_420YpCbCr8BiPlanarFullRange] 
                                                              forKey:(id)kCVPixelBufferPixelFormatTypeKey]]; // Necessary for manual preview
     
@@ -194,6 +179,15 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     }
 }
 
+- (void)glkView:(GLKView *)view drawInRect:(CGRect)rect
+{
+    glClear(GL_COLOR_BUFFER_BIT);
+    
+    if (_ripple)
+    {
+        glDrawElements(GL_TRIANGLE_STRIP, [_ripple getIndexCount], GL_UNSIGNED_SHORT, 0);
+    }
+}
 
 #pragma mark - Touch handling methods
 

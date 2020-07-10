@@ -125,6 +125,27 @@ enum
     }
 }
 
+- (void)setupBuffers
+{
+    glGenBuffers(1, &_indexVBO);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _indexVBO);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, [_ripple getIndexSize], [_ripple getIndices], GL_STATIC_DRAW);
+    
+    glGenBuffers(1, &_positionVBO);
+    glBindBuffer(GL_ARRAY_BUFFER, _positionVBO);
+    glBufferData(GL_ARRAY_BUFFER, [_ripple getVertexSize], [_ripple getVertices], GL_STATIC_DRAW);
+    
+    glEnableVertexAttribArray(ATTRIB_VERTEX);
+    glVertexAttribPointer(ATTRIB_VERTEX, 2, GL_FLOAT, GL_FALSE, 2*sizeof(GLfloat), 0);
+
+    glGenBuffers(1, &_texcoordVBO);
+    glBindBuffer(GL_ARRAY_BUFFER, _texcoordVBO);
+    glBufferData(GL_ARRAY_BUFFER, [_ripple getVertexSize], [_ripple getTexCoords], GL_DYNAMIC_DRAW);
+    
+    glEnableVertexAttribArray(ATTRIB_TEXCOORD);
+    glVertexAttribPointer(ATTRIB_TEXCOORD, 2, GL_FLOAT, GL_FALSE, 2*sizeof(GLfloat), 0);
+}
+
 - (void)setRipple:(RippleModel *)ripple
 {
     if (_ripple != ripple) {
@@ -232,27 +253,6 @@ enum
     glBindTexture(CVOpenGLESTextureGetTarget(_chromaTexture), CVOpenGLESTextureGetName(_chromaTexture));
     glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
     glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-}
-
-- (void)setupBuffers
-{
-    glGenBuffers(1, &_indexVBO);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _indexVBO);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, [_ripple getIndexSize], [_ripple getIndices], GL_STATIC_DRAW);
-    
-    glGenBuffers(1, &_positionVBO);
-    glBindBuffer(GL_ARRAY_BUFFER, _positionVBO);
-    glBufferData(GL_ARRAY_BUFFER, [_ripple getVertexSize], [_ripple getVertices], GL_STATIC_DRAW);
-    
-    glEnableVertexAttribArray(ATTRIB_VERTEX);
-    glVertexAttribPointer(ATTRIB_VERTEX, 2, GL_FLOAT, GL_FALSE, 2*sizeof(GLfloat), 0);
-
-    glGenBuffers(1, &_texcoordVBO);
-    glBindBuffer(GL_ARRAY_BUFFER, _texcoordVBO);
-    glBufferData(GL_ARRAY_BUFFER, [_ripple getVertexSize], [_ripple getTexCoords], GL_DYNAMIC_DRAW);
-    
-    glEnableVertexAttribArray(ATTRIB_TEXCOORD);
-    glVertexAttribPointer(ATTRIB_TEXCOORD, 2, GL_FLOAT, GL_FALSE, 2*sizeof(GLfloat), 0);
 }
 
 #pragma mark - OpenGL ES 2 shader compilation

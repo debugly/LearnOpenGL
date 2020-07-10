@@ -57,6 +57,9 @@
 - (unsigned int)getIndexSize;
 - (unsigned int)getIndexCount;
 
+- (int)textureWidth;
+- (int)textureHeight;
+
 - (id)initWithScreenWidth:(unsigned int)width
              screenHeight:(unsigned int)height
                meshFactor:(unsigned int)factor
