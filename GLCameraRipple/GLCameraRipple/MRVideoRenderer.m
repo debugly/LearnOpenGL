@@ -48,7 +48,7 @@ enum
     NUM_ATTRIBUTES
 };
 
-@interface MRVideoRenderer ()
+@interface MRVideoRenderer ()<GLKViewDelegate>
 {
     GLuint _program;
     
@@ -100,8 +100,33 @@ enum
         self.contentScaleFactor = [UIScreen mainScreen].scale;
         self.context = context;
         _preferredConversion = kColorConversion709;
+        
+        self.delegate = self;
     }
     return self;
+}
+
+- (void)setDelegate:(id<GLKViewDelegate>)delegate
+{
+    [super setDelegate:self];
+}
+
+- (void)glkView:(GLKView *)view drawInRect:(CGRect)rect
+{
+    if (_ripple)
+    {
+        [_ripple runSimulation];
+
+        // no need to rebind GL_ARRAY_BUFFER to _texcoordVBO since it should be still be bound from setupBuffers
+        glBufferData(GL_ARRAY_BUFFER, [_ripple getVertexSize], [_ripple getTexCoords], GL_DYNAMIC_DRAW);
+    }
+    
+    glClear(GL_COLOR_BUFFER_BIT);
+    
+    if (_ripple)
+    {
+        glDrawElements(GL_TRIANGLE_STRIP, [_ripple getIndexCount], GL_UNSIGNED_SHORT, 0);
+    }
 }
 
 - (void)setupGL
@@ -123,27 +148,6 @@ enum
         NSLog(@"Error at CVOpenGLESTextureCacheCreate %d", err);
         return;
     }
-}
-
-- (void)setupBuffers
-{
-    glGenBuffers(1, &_indexVBO);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _indexVBO);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, [_ripple getIndexSize], [_ripple getIndices], GL_STATIC_DRAW);
-    
-    glGenBuffers(1, &_positionVBO);
-    glBindBuffer(GL_ARRAY_BUFFER, _positionVBO);
-    glBufferData(GL_ARRAY_BUFFER, [_ripple getVertexSize], [_ripple getVertices], GL_STATIC_DRAW);
-    
-    glEnableVertexAttribArray(ATTRIB_VERTEX);
-    glVertexAttribPointer(ATTRIB_VERTEX, 2, GL_FLOAT, GL_FALSE, 2*sizeof(GLfloat), 0);
-
-    glGenBuffers(1, &_texcoordVBO);
-    glBindBuffer(GL_ARRAY_BUFFER, _texcoordVBO);
-    glBufferData(GL_ARRAY_BUFFER, [_ripple getVertexSize], [_ripple getTexCoords], GL_DYNAMIC_DRAW);
-    
-    glEnableVertexAttribArray(ATTRIB_TEXCOORD);
-    glVertexAttribPointer(ATTRIB_TEXCOORD, 2, GL_FLOAT, GL_FALSE, 2*sizeof(GLfloat), 0);
 }
 
 - (void)setRipple:(RippleModel *)ripple
@@ -253,6 +257,27 @@ enum
     glBindTexture(CVOpenGLESTextureGetTarget(_chromaTexture), CVOpenGLESTextureGetName(_chromaTexture));
     glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
     glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+}
+
+- (void)setupBuffers
+{
+    glGenBuffers(1, &_indexVBO);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _indexVBO);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, [_ripple getIndexSize], [_ripple getIndices], GL_STATIC_DRAW);
+    
+    glGenBuffers(1, &_positionVBO);
+    glBindBuffer(GL_ARRAY_BUFFER, _positionVBO);
+    glBufferData(GL_ARRAY_BUFFER, [_ripple getVertexSize], [_ripple getVertices], GL_STATIC_DRAW);
+    
+    glEnableVertexAttribArray(ATTRIB_VERTEX);
+    glVertexAttribPointer(ATTRIB_VERTEX, 2, GL_FLOAT, GL_FALSE, 2*sizeof(GLfloat), 0);
+
+    glGenBuffers(1, &_texcoordVBO);
+    glBindBuffer(GL_ARRAY_BUFFER, _texcoordVBO);
+    glBufferData(GL_ARRAY_BUFFER, [_ripple getVertexSize], [_ripple getTexCoords], GL_DYNAMIC_DRAW);
+    
+    glEnableVertexAttribArray(ATTRIB_TEXCOORD);
+    glVertexAttribPointer(ATTRIB_TEXCOORD, 2, GL_FLOAT, GL_FALSE, 2*sizeof(GLfloat), 0);
 }
 
 #pragma mark - OpenGL ES 2 shader compilation

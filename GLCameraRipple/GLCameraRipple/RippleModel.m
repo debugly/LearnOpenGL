@@ -45,6 +45,8 @@
  
  */
 
+// 水波特效原理，中文解释 https://www.cnblogs.com/zenny-chen/archive/2012/12/23/2830113.html
+
 #import "RippleModel.h"
 
 @interface RippleModel () {

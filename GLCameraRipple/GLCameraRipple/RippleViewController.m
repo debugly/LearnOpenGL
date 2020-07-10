@@ -50,9 +50,8 @@
 #import "RippleModel.h"
 #import "MRVideoRenderer.h"
 
-@interface RippleViewController () {
-    
-    RippleModel *_ripple;
+@interface RippleViewController ()
+{
     unsigned int _meshFactor;
     AVCaptureSession *_session;
 }
@@ -71,6 +70,7 @@
     
     MRVideoRenderer *view = (MRVideoRenderer *)self.view;
     [view setupGL];
+    view.isFullYUVRange = YES;
     [_session startRunning];
 }
 
@@ -89,26 +89,23 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     
     MRVideoRenderer *view = (MRVideoRenderer *)self.view;
     
-    if (_ripple == nil ||
-        width != [_ripple textureWidth] ||
-        height != [_ripple textureHeight])
+    if (view.ripple == nil ||
+        width != [view.ripple textureWidth] ||
+        height != [view.ripple textureHeight])
     {
         CGFloat screenWidth  = [UIScreen mainScreen].bounds.size.width;
         CGFloat screenHeight = [UIScreen mainScreen].bounds.size.height;
         
-        _ripple = [[RippleModel alloc] initWithScreenWidth:screenWidth
+        view.ripple = [[RippleModel alloc] initWithScreenWidth:screenWidth
                                               screenHeight:screenHeight
                                                 meshFactor:_meshFactor
                                                touchRadius:5
                                               textureWidth:width
                                              textureHeight:height];
         
-        [view setRipple:_ripple];
     }
     
     [view displayPixelBuffer:pixelBuffer];
-    view.isFullYUVRange = YES;
-    [view setNeedsDisplay];
 }
 
 - (void)setupAVCapture
@@ -166,37 +163,15 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     [_session commitConfiguration];
 }
 
-#pragma mark - GLKView and GLKViewController delegate methods
-
-- (void)update
-{
-    if (_ripple)
-    {
-        [_ripple runSimulation];
-
-        // no need to rebind GL_ARRAY_BUFFER to _texcoordVBO since it should be still be bound from setupBuffers
-        glBufferData(GL_ARRAY_BUFFER, [_ripple getVertexSize], [_ripple getTexCoords], GL_DYNAMIC_DRAW);
-    }
-}
-
-- (void)glkView:(GLKView *)view drawInRect:(CGRect)rect
-{
-    glClear(GL_COLOR_BUFFER_BIT);
-    
-    if (_ripple)
-    {
-        glDrawElements(GL_TRIANGLE_STRIP, [_ripple getIndexCount], GL_UNSIGNED_SHORT, 0);
-    }
-}
-
 #pragma mark - Touch handling methods
 
 - (void)myTouch:(NSSet *)touches withEvent:(UIEvent *)event
 {
     for (UITouch *touch in touches) 
     {
-        CGPoint location = [touch locationInView:touch.view]; 
-        [_ripple initiateRippleAtLocation:location]; 
+        CGPoint location = [touch locationInView:touch.view];
+        MRVideoRenderer *view = (MRVideoRenderer *)self.view;
+        [view.ripple initiateRippleAtLocation:location];
     }
 }
 
